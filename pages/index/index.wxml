@@ -1,0 +1,107 @@
+<!--index.wxml-->
+<wxs module="util">
+    var joinArray = function (array) {
+        return array.join('\n')
+    }
+
+    var monthName = function (month) {
+      var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"
+]
+      return months[month-1];
+    }
+
+    var double = function (month) {
+      if (month < 10) {
+          return '0' + month;
+      }
+      return month.toString()
+    }
+
+    module.exports = {
+        joinArray: joinArray,
+        monthName: monthName,
+        double: double
+    }
+</wxs>
+
+<view class="container" bindtouchstart="touchStart" bindtouchmove="touchMove" bindtouchend="touchEnd" >
+  <view class="cover-wrapper">
+    <image class="cover" mode="aspectFill" src="{{ poetry.cover }}">
+    </image>
+  </view>
+
+  <view class="progress-wrapper">
+    <view class="label" style="width: {{progress}}%"></view>
+    <view class="now" style=""></view>
+  </view>
+
+  <!--
+  <view class="mid-wrapper">
+    <view class="mid">
+      <view class="yang">{{ today.cYear }}.{{ today.cMonth }}.{{ today.cDay }}</view>
+      <view class="nong" bindtap="render">{{today.gzYear}}·{{today.IMonthCn}}{{ today.IDayCn }}</view>
+    </view>
+  </view>
+  -->
+
+  <view class="main-wrapper">
+    <view class="master">
+      <view class="poetry-wrapper" >
+        <view class="poetry-content {{ uu === true ? 'uu' : ''}} {{ loading === true ? 'mini' : ''}}" bindtap="changeLayout">
+          <text class="author-inner">{{ poetry.title }}·{{ poetry.author }}</text>
+          <text class="poetry-inner">{{util.joinArray(poetry.paragraphs)}}</text>
+          
+        </view>
+      </view>
+  
+      <view class="today-wrapper">
+          <view class="en under right">
+            <text class="">{{ util.monthName(today.cMonth) }}</text>
+          </view>
+          <view class="en right">
+            <text class="under">{{util.double(today.cMonth)}}</text>
+          </view>
+          <view class="year en right">
+            <text class="under">{{today.cYear}}</text>
+          </view>
+          <view class="yang">
+            <picker
+              mode="date"
+              start="1994-01-01"
+              end="2090-01-01"
+              bindchange="changeDate"
+            >
+              <view class="">{{ util.double(today.cDay) }}</view>
+            </picker>
+          </view>
+
+          <view class="meta">
+            <text class="under">{{today.gzYear}}·{{today.Animal}}年</text>
+          </view>
+          <view class="meta">
+            <text class="under">{ {{today.IMonthCn}}{{ today.IDayCn }} }</text>
+          </view>
+          <view class="meta">
+            <text class="">{{ today.ncWeek }}</text>
+          </view>
+          <view class="holiday meta">
+            <text wx:if="{{ today.Term }}" class="under">{{ today.Term }}</text>
+            <text wx:elif="{{ today.lunarDay }}" class="under">{{ today.lunarDay }}</text>
+            <text wx:elif="{{ today.solarDay }}" class="under">{{ today.solarDay }}</text>
+            <text wx:else class="under"></text>
+          </view>
+      </view>
+    </view>
+  </view>
+
+  <!--
+  <view class="calendar-wrapper">
+    <view class="calendar">
+      <view wx:for="{{calendar}}" wx:for-item="day" wx:key="index" class="item {{day.today==true ? 'active' : ''}}">
+      <view class="yang">{{ day.cDay }}</view>
+      <view class="nong">{{ day.IDayCn }}</view>
+      </view>
+    </view>
+  </view>
+  -->
+</view>

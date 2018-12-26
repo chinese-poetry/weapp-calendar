@@ -1,0 +1,249 @@
+/**index.wxss**/
+page {
+  height: 100%;
+  background-color: #ffe411;
+  color: #fff;
+}
+
+.container {
+  display: flex;
+  background-repeat: no-repeat;
+  background-position: right bottom;
+}
+
+.cover-wrapper {
+  width: 700rpx;
+  height: 35%;
+  display: flex;
+  justify-content: center;
+}
+
+.main-wrapper {
+  height: calc(65% - 6rpx);
+  width: 700rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+.progress-wrapper {
+  height: 6rpx;
+  width: 100%;
+  background: #404040;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.calendar-wrapper {
+  height: 66px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.cover {
+  width: calc(100% - 0px);
+  height: calc(100% - 30rpx);
+  border-radius: 50rpx;
+  box-shadow: 10rpx 10rpx 10rpx 0 #404040;
+}
+
+.poetry-wrapper {
+  height: 100%;
+  width: 560rpx;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.today-wrapper {
+  height: 100%;
+  width: 190rpx;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.progress-wrapper .label {
+  background: #fff;
+  height: 100%;
+  border-top-right-radius: 3rpx;
+  border-bottom-right-radius: 3rpx;
+  box-shadow: 3rpx 0 1rpx rgb(67, 168, 238);
+}
+
+.progress-wrapper .now {
+}
+
+.master {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.today-wrapper .en {
+  font-size: 28rpx;
+  line-height: 38rpx;
+  color: #404040;
+  font-weight: bold;
+}
+
+.today-wrapper {
+  padding-left: 25rpx;
+}
+
+.today-wrapper .yang {
+  font-size: 130rpx;
+  width: 100%;
+  text-align: center;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 35%;
+  text-shadow: 15rpx 0 1rpx rgb(67, 168, 238);
+  box-shadow: 10rpx 10rpx 10rpx 1rpx #404040;
+  margin-top: 20rpx;
+  margin-bottom: 20rpx;
+}
+
+.today-wrapper .meta {
+  font-size: 28rpx;
+  line-height: 50rpx;
+  color: #fff;
+  font-weight: 500;
+  letter-spacing: 3rpx;
+  text-shadow: 5rpx 0 1rpx rgb(67, 168, 238);
+}
+
+.today-wrapper .holiday {
+  height: 28rpx;
+}
+
+.today-wrapper .year {
+  font-size: 36rpx;
+  color: #404040;
+}
+
+.today-wrapper .right {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.under {
+  border-bottom: 1rpx solid #fff;
+}
+
+.poetry-content {
+  background: #404040;
+  border-radius: 20px;
+  box-shadow: 10rpx 10rpx 10rpx 0 #404040;
+  /* box-shadow: 0 1rpx 3rpx 0 #ffaaaa, 0 0 0 1rpx #ffaaaa; */
+  min-height: 80%;
+  min-width: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 20rpx;
+  overflow: auto;
+}
+
+.poetry-content.mini {
+  height: 20%;
+  width: 20%;
+}
+
+.poetry-content.mini.uu {
+  height: 20%;
+  width: 20%;
+}
+
+.poetry-content.uu {
+  flex-direction: row;
+}
+
+.poetry-content {
+  letter-spacing: 5rpx;
+  font-size: 28rpx;
+  font-weight: 800;
+  line-height: 40rpx;
+  color: #fff;
+}
+
+.uu.poetry-content text {
+  text-align: start;
+  writing-mode: vertical-rl;
+  -moz-writing-mode: vertical-rl;
+  -webkit-writing-mode: vertical-rl;
+  -o-writing-mode: vertical-rl;
+  -ms-writing-mode: tb-rl;
+  _writing-mode: tb-rl;
+}
+
+
+.author-inner {
+  letter-spacing: 3rpx;
+  font-size: 32rpx;
+  font-weight: 800;
+  text-align: left;
+  padding-left: 0rpx;
+  border-left: unset;
+  background: #ffe411;
+  padding: 5rpx 16rpx;
+  border-radius: 30rpx;
+  text-shadow: 4rpx 0 2rpx rgb(67, 168, 238);
+  margin-bottom: 20rpx;
+}
+
+.uu .author-inner {
+  padding: 16rpx 5rpx;
+}
+
+.calendar {
+  display: flex;
+  height: 80rpx;
+  width: calc(100% - 32px);
+  border-top: 1px dashed #95e1d3;
+  border-bottom: 1px dashed #95e1d3;
+}
+
+.calendar .item:first-child {
+  border-left: 1px dashed #95e1d3;
+  width: calc(14.285% - 2px);
+}
+
+.calendar .item {
+  border-right: 1px dashed #95e1d3;
+  width: calc(14.285% - 1px);
+  font-size: 20rpx;
+  font-weight: 300;
+}
+
+.calendar .item.active {
+  color: #5c4d4d;
+  font-weight: bold;
+  background: rgba(255,255,255,0.3);
+}
+
+.calendar .item .yang, .calendar .item .nong {
+  width: 100%;
+  height: 25px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+.calendar .item .yang {
+  font-size: 14px;
+  align-items: flex-end;
+}
+
+.calendar .item .nong {
+  font-size: 14px;
+  align-items: flex-start;
+}

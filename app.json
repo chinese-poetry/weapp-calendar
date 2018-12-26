@@ -1,0 +1,15 @@
+{
+  "pages": [
+    "pages/index/index"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#ffe411",
+    "navigationBarTitleText": "中文诗歌",
+    "navigationBarTextStyle": "light",
+    "enablePullDownRefresh": false,
+    "backgroundColorTop": "#ffe411",
+    "disableScroll": true,
+    "backgroundColorBottom": "#ffe411"
+  }
+}
