@@ -1,20 +1,21 @@
 //index.js
-//获取应用实例
 const app = getApp()
-
-const promisify = require('../../utils/promisify');
 
 const AV = require('../../libs/av-weapp-min');
 
 const calendar = require('../../libs/calendar');
 
-
 const utils = require('../../utils/util');
+
 const holiday = require('../../utils/holidays')
 
+const imgRoot = 'https://lg-rvf1ejrg-1252320429.cos.ap-shanghai.myqcloud.com'
+
+// Global Veriables 
 var touchDot = 0;
 var time = 0;
 var interval = "";
+var pickMap = {};
 
 Page({
   data: {
@@ -24,6 +25,7 @@ Page({
       new Date().getDate()
     ),
     poetry: {
+      id: null,
       title: "破阵子",
       paragraphs: ["燕子来时新社，",
         "梨花落后清明。",
@@ -37,27 +39,20 @@ Page({
         "笑从双脸生。"
       ],
       author: "晏殊",
-      cover: "https://shici.store/huajianji/assets/images/thumb.jpg"
+      cover: "../assets/weapp-logo.jpg"
     },
     uu: false,
     loading: false,
+    touching: false,
     progress: 0,
-    poetrys: [],
     calendar: [],
     userInfo: {},
     canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
 
-  fetchAll () {
-    
-  },
-
-  render (day) {
+  render (day, pid) {
     var day = new Date(day.getTime());
-    var results = this.data.poetrys;
     
-    var query = new AV.Query('poetry')
-
     var today = calendar.Calendar.solar2lunar(
       day.getFullYear(),
       day.getMonth() + 1,
@@ -66,28 +61,16 @@ Page({
 
     var progress = utils.getProgress(today)
 
-    var vm = this;
-  
-    vm.setData({
-      loading: true,
-      progress: progress
-    })
-
-    query.find().then(function (results) {
-      vm.setData({
-        poetrys: results
-      })
-
-      var item = results[Math.floor(Math.random() * results.length)];
-      vm.setData({
-        'poetry.author': item.attributes.author,
-        'poetry.title': item.attributes.title,
-        'poetry.paragraphs': item.attributes.paragraphs,
-        'poetry.cover': item.attributes.cover,
-        'loading': false
-      })
-    })
-
+    if (Object.keys(app.globalData.poetrys).length > 0) {
+      var item = this.pick(pid, today, app.globalData.poetrys)
+      this.setPoetry(item)
+    } else {
+      app.poetrysCallback = poetrys => {
+        var item = this.pick(pid, today, poetrys);
+        this.setPoetry(item)
+      }
+    }
+    
     // Holiday
     if (today.IMonthCn + today.IDayCn in holiday.lunarMap) {
       today.lunarDay = holiday.lunarMap[today.IMonthCn + today.IDayCn]
@@ -98,39 +81,54 @@ Page({
     }
 
     this.setData({
-      today: today
+      today: today,
+      progress: progress
     })
+  },
 
-    var wds = utils.weekDays(day)
-    for (var i in wds) {
-      var solar = wds[i];
-      var lunar = calendar.Calendar.solar2lunar(
-        solar.getFullYear(),
-        solar.getMonth() + 1,
-        solar.getDate()
-      )
+  setPoetry: function (item) {
+    this.setData({
+      'poetry.title': item.title,
+      'poetry.cover': imgRoot + '/' + item.cover,
+      'poetry.paragraphs': item.paragraphs,
+      'poetry.author': item.author,
+      'poetry.id': item.id
+    })
+  },
 
-      if (lunar.IDayCn === today.IDayCn) {
-        lunar.today = true
-      } else {
-        lunar.today = false
-      }
+  pick: function (pid, today, poetrys) {
+    var key = today.IMonthCn + today.IDayCn
 
-      var key = "calendar[" + i + "]"
-      this.setData({
-        [key]: lunar
-      })
+    if (pid) {
+      pickMap[key] = pid
+      return poetrys[pid]
     }
+
+    if (key in pickMap) {
+      return poetrys[pickMap[key]]
+    }
+
+    var ids = Object.keys(poetrys)
+    var id = ids[Math.floor(Math.random() * ids.length)]
+    pickMap[key] = id
+
+    return this.pick(pid, today, poetrys)
   },
 
   onLoad: function (options) {
+    var day = new Date();
+    var pid = null;
+  
     if ('d' in options) {
-      app.globalData.current = new Date(options.d);
-    } else {
-      app.globalData.current = new Date();
-    }  
+      day = new Date(options.d);
+    }
 
-    this.render(app.globalData.current)
+    if ('p' in options) {
+      pid = options.p
+    }
+
+    app.globalData.current = day;
+    this.render(day, pid)
   },
 
   changeDate: function (e) {
@@ -145,10 +143,13 @@ Page({
   },
 
   onShareAppMessage: function () {
+    var d = utils.formatDate(app.globalData.current)
+    var p = this.data.poetry.id;
     return {
-      title: this.data.poetry.title,
+      title: this.data.poetry.title + '·' + this.data.poetry.author,
       desc: this.data.poetry.paragraphs.slice(0, 4).join(''),
-      path: '/pages/index/index?d=' + utils.formatDate(app.globalData.current)
+      path: '/pages/index/index?d=' + d + '&p=' + p,
+      imageUrl: this.data.poetry.cover,
     }
   },
 
@@ -162,6 +163,7 @@ Page({
 
   touchStart: function (e) {
     touchDot = e.touches[0].pageY; // 获取触摸时的原点
+
     // 使用js计时器记录时间  
     interval = setInterval(function () {
       time++;
@@ -170,15 +172,19 @@ Page({
   // 触摸移动事件
   touchMove: function (e) {
     var touchMove = e.touches[0].pageY;
+    this.setData({
+      touching: true
+    })
+  
     // console.log("touchMove:" + touchMove + " touchDot:" + touchDot + " diff:" + (touchMove - touchDot));
-    // 向左滑动  
-    if (touchMove - touchDot <= -150 && time < 1000) {
+    // 向上滑动  
+    if (touchMove - touchDot <= -200 && time < 1000) {
       touchDot = touchMove;
       app.globalData.current.setDate(app.globalData.current.getDate() - 1)
       this.render(app.globalData.current)
     }
-    // 向右滑动
-    if (touchMove - touchDot >= 150 && time < 1000) {
+    // 向下滑动
+    if (touchMove - touchDot >= 200 && time < 1000) {
       touchDot = touchMove;
       app.globalData.current.setDate(app.globalData.current.getDate() + 1)
       this.render(app.globalData.current)
@@ -188,5 +194,9 @@ Page({
   touchEnd: function (e) {
     clearInterval(interval); // 清除setInterval
     time = 0;
+
+    this.setData({
+      touching: false
+    })
   }
 })

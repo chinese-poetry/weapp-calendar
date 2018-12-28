@@ -103,10 +103,13 @@ page {
   align-items: center;
   justify-content: center;
   height: 35%;
-  text-shadow: 15rpx 0 1rpx rgb(67, 168, 238);
-  box-shadow: 10rpx 10rpx 10rpx 1rpx #404040;
+  text-shadow: 13rpx 0 1rpx rgb(67, 168, 238);
   margin-top: 20rpx;
   margin-bottom: 20rpx;
+}
+
+.today-wrapper .yang.touch {
+  box-shadow: 10rpx 10rpx 10rpx 1rpx #404040;
 }
 
 .today-wrapper .meta {
@@ -119,12 +122,20 @@ page {
 }
 
 .today-wrapper .holiday {
-  height: 28rpx;
+  height: 70rpx;
+  display: flex;
+  align-items: center;
+}
+
+.holiday .under {
+  border-bottom: 2rpx solid rgb(67, 168, 238);
 }
 
 .today-wrapper .year {
   font-size: 36rpx;
   color: #404040;
+  height: 50rpx;
+  align-items: flex-end;
 }
 
 .today-wrapper .right {
@@ -135,7 +146,11 @@ page {
 }
 
 .under {
-  border-bottom: 1rpx solid #fff;
+  border-bottom: 2rpx solid #fff;
+}
+
+.en .under {
+  border-bottom: 2rpx solid #404040;
 }
 
 .poetry-content {
@@ -145,6 +160,7 @@ page {
   /* box-shadow: 0 1rpx 3rpx 0 #ffaaaa, 0 0 0 1rpx #ffaaaa; */
   min-height: 80%;
   min-width: 80%;
+  max-height: 90%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -164,7 +180,22 @@ page {
 }
 
 .poetry-content.uu {
-  flex-direction: row;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.poetry-meta {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20rpx;
+  align-items: flex-start;
+  min-width: 80%;
+}
+
+.uu .poetry-meta {
+  margin-bottom: 50rpx;
+  align-items: flex-end;
+  width: 100%;
 }
 
 .poetry-content {
@@ -175,7 +206,8 @@ page {
   color: #fff;
 }
 
-.uu.poetry-content text {
+
+.uu.poetry-content .poetry-inner {
   text-align: start;
   writing-mode: vertical-rl;
   -moz-writing-mode: vertical-rl;
@@ -186,22 +218,31 @@ page {
 }
 
 
-.author-inner {
+.title-inner {
   letter-spacing: 3rpx;
   font-size: 32rpx;
-  font-weight: 800;
   text-align: left;
-  padding-left: 0rpx;
   border-left: unset;
   background: #ffe411;
   padding: 5rpx 16rpx;
   border-radius: 30rpx;
   text-shadow: 4rpx 0 2rpx rgb(67, 168, 238);
-  margin-bottom: 20rpx;
+  margin-bottom: 10rpx;
+}
+
+
+.author-inner {
+  text-align: center;
+  letter-spacing: 1rpx;
+  font-size: 28rpx;
+  padding-top: 5rpx;
+  padding-bottom: 3rpx;
+  margin-left: 16rpx;
+  border-bottom: 2rpx solid rgb(67, 168, 238);
 }
 
 .uu .author-inner {
-  padding: 16rpx 5rpx;
+  margin-right: 16rpx;
 }
 
 .calendar {

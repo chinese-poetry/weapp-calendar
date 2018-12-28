@@ -24,7 +24,7 @@
     }
 </wxs>
 
-<view class="container" bindtouchstart="touchStart" bindtouchmove="touchMove" bindtouchend="touchEnd" >
+<view class="container">
   <view class="cover-wrapper">
     <image class="cover" mode="aspectFill" src="{{ poetry.cover }}">
     </image>
@@ -44,19 +44,22 @@
   </view>
   -->
 
-  <view class="main-wrapper">
+  <view class="main-wrapper" bindtouchstart="touchStart" bindtouchmove="touchMove" bindtouchend="touchEnd">
     <view class="master">
       <view class="poetry-wrapper" >
         <view class="poetry-content {{ uu === true ? 'uu' : ''}} {{ loading === true ? 'mini' : ''}}" bindtap="changeLayout">
-          <text class="author-inner">{{ poetry.title }}·{{ poetry.author }}</text>
+          <view class="poetry-meta">
+            <text class="title-inner">{{ poetry.title }}</text>
+            <text class="author-inner">{{ poetry.author }}</text>
+          </view>
           <text class="poetry-inner">{{util.joinArray(poetry.paragraphs)}}</text>
           
         </view>
       </view>
   
       <view class="today-wrapper">
-          <view class="en under right">
-            <text class="">{{ util.monthName(today.cMonth) }}</text>
+          <view class="en right">
+            <text class="under">{{ util.monthName(today.cMonth) }}</text>
           </view>
           <view class="en right">
             <text class="under">{{util.double(today.cMonth)}}</text>
@@ -64,7 +67,7 @@
           <view class="year en right">
             <text class="under">{{today.cYear}}</text>
           </view>
-          <view class="yang">
+          <view class="yang {{ touching === true ? 'touch' : ''}}">
             <picker
               mode="date"
               start="1994-01-01"
@@ -75,16 +78,16 @@
             </picker>
           </view>
 
-          <view class="meta">
-            <text class="under">{{today.gzYear}}·{{today.Animal}}年</text>
+          <view class="meta under">
+            <text class="">{{today.gzYear}}·{{today.Animal}}年</text>
           </view>
-          <view class="meta">
-            <text class="under">{ {{today.IMonthCn}}{{ today.IDayCn }} }</text>
+          <view class="meta under">
+            <text class="">{{today.IMonthCn}}{{ today.IDayCn }}</text>
           </view>
-          <view class="meta">
+          <view class="meta under">
             <text class="">{{ today.ncWeek }}</text>
           </view>
-          <view class="holiday meta">
+          <view class="holiday right meta">
             <text wx:if="{{ today.Term }}" class="under">{{ today.Term }}</text>
             <text wx:elif="{{ today.lunarDay }}" class="under">{{ today.lunarDay }}</text>
             <text wx:elif="{{ today.solarDay }}" class="under">{{ today.solarDay }}</text>

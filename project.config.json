@@ -11,7 +11,7 @@
 		"newFeature": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.4.2",
+	"libVersion": "2.4.3",
 	"appid": "wxe222e63329ec7900",
 	"projectname": "%E4%B8%AD%E6%96%87%E8%AF%97%E6%AD%8C",
 	"isGameTourist": false,
@@ -39,7 +39,7 @@
 					"id": 0,
 					"name": "参数",
 					"pathName": "pages/index/index",
-					"query": "d=2019-09-13"
+					"query": "d=2019-02-05"
 				}
 			]
 		}
