@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+    <meta charset="utf-8">
+    <title>诗词日历</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+    body, html {
+        margin: 0;
+        font-family: "Georgia","Nimbus Roman No9 L","Songti SC",STSong,"AR PL New Sung","AR PL SungtiL GB",NSimSun,SimSun,"TW\-Sung","WenQuanYi Bitmap Song","AR PL UMing CN","AR PL UMing HK","AR PL UMing TW","AR PL UMing TW MBE",sans-serif;
+        font-weight: 300;
+        letter-spacing: 3px;
+        height: 100%;
+        width: 100%;
+    }
+
+    .main {
+        display: flex;
+        height: 100%;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+        background: #404040;
+    }
+
+    .like-jike {
+        text-shadow: 4px 0 1px rgb(67, 168, 238);
+    }
+
+    .inner {
+        width: 450px;
+        height: 500px;
+    }
+
+    .zhuyao {
+        font-size: 50px;
+        color: #fff;
+        font-weight: 800;
+    }
+
+    .meta {
+        font-size: 16px;
+        font-weight: 400;
+        color: #ccc;
+        font-weight: 800;
+        line-height: 3;
+    }
+    
+    .qrcode {
+        padding: 16px;
+        display:flex;
+        justify-content: center;
+        background: #fff;
+    }
+
+    .inner img {
+        height: 200px;
+        width: 200px;
+    }
+    </style>
+
+    <body>
+        <div class="main">
+            <div class="inner ">
+                <div class="zhuyao">日历小程序</div>
+
+                <div class="meta">weapp-calendar</div>
+
+                <div class="qrcode">
+                    <img src="./weapp.jpeg">
+                </div>
+            </div>
+        </div>
+    </body>
+
+</html>
